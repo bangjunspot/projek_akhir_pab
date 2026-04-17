@@ -10,10 +10,7 @@ class TransactionService {
   }) async {
     final data = await _supabase.client
         .from('transactions')
-        .insert({
-          'cashier_id': cashierId,
-          'total': total,
-        })
+        .insert({'cashier_id': cashierId, 'total': total})
         .select('id')
         .single();
     return data['id'].toString();
@@ -24,14 +21,35 @@ class TransactionService {
     required List<Map<String, dynamic>> items,
   }) async {
     final payload = items
-        .map((item) => {
-              'transaction_id': transactionId,
-              'product_id': item['product_id'],
-              'qty': item['qty'],
-              'price': item['price'],
-            })
+        .map(
+          (item) => {
+            'transaction_id': transactionId,
+            'product_id': item['product_id'],
+            'qty': item['qty'],
+            'price': item['price'],
+          },
+        )
         .toList();
     await _supabase.client.from('transaction_items').insert(payload);
+  }
+
+  Future<void> createStockOutMovements({
+    required String transactionId,
+    required List<Map<String, dynamic>> items,
+  }) async {
+    final payload = items
+        .map(
+          (item) => {
+            'product_id': item['product_id'],
+            'qty': item['qty'],
+            'type': 'out',
+            'note': 'Transaksi #$transactionId',
+          },
+        )
+        .toList();
+
+    if (payload.isEmpty) return;
+    await _supabase.client.from('stock_movements').insert(payload);
   }
 
   Future<List<TransactionRecord>> fetchTransactions() async {

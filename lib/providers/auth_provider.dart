@@ -19,8 +19,13 @@ class AuthProvider extends ChangeNotifier {
     _setLoading(true);
     error = null;
     try {
-      await _service.signIn(email: email, password: password);
+      await _service.signIn(
+        email: email.trim().toLowerCase(),
+        password: password,
+      );
       await loadProfile();
+    } on AuthException catch (e) {
+      error = _mapLoginError(e.message);
     } catch (e) {
       error = e.toString();
     } finally {
@@ -28,13 +33,26 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+  String _mapLoginError(String message) {
+    final msg = message.toLowerCase();
+    if (msg.contains('invalid login credentials')) {
+      return 'Email atau password salah';
+    }
+    if (msg.contains('email not confirmed')) {
+      return 'Email belum terverifikasi';
+    }
+    if (msg.contains('network')) {
+      return 'Gagal terhubung ke internet';
+    }
+    return 'Login gagal. Silakan coba lagi';
+  }
+
   Future<void> loadProfile() async {
     final user = _service.currentUser;
     if (user == null) return;
     error = null;
     try {
-      profile =
-          await _service.fetchOrCreateProfile(user.id, user.email ?? '');
+      profile = await _service.fetchOrCreateProfile(user.id, user.email ?? '');
     } catch (e) {
       error = e.toString();
     } finally {

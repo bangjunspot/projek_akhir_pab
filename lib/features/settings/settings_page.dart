@@ -61,7 +61,9 @@ class _SettingsPageState extends State<SettingsPage> {
       barrierDismissible: false,
       builder: (ctx) => StatefulBuilder(
         builder: (ctx, setStateDialog) => AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
           title: Row(
             children: [
               Container(
@@ -70,8 +72,11 @@ class _SettingsPageState extends State<SettingsPage> {
                   color: ClayColors.primary.withAlpha(25),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Icon(Icons.person_add_rounded,
-                    color: ClayColors.primary, size: 18),
+                child: Icon(
+                  Icons.person_add_rounded,
+                  color: ClayColors.primary,
+                  size: 18,
+                ),
               ),
               const SizedBox(width: 10),
               const Text('Tambah User'),
@@ -129,10 +134,10 @@ class _SettingsPageState extends State<SettingsPage> {
                       if (!formKey.currentState!.validate()) return;
                       setStateDialog(() => isLoading = true);
                       final err = await context.read<AuthProvider>().createUser(
-                            email: emailCtrl.text.trim(),
-                            password: passCtrl.text.trim(),
-                            role: selectedRole,
-                          );
+                        email: emailCtrl.text.trim(),
+                        password: passCtrl.text.trim(),
+                        role: selectedRole,
+                      );
                       setStateDialog(() => isLoading = false);
                       if (!ctx.mounted) return;
                       if (err != null) {
@@ -140,8 +145,11 @@ class _SettingsPageState extends State<SettingsPage> {
                           SnackBar(
                             content: Row(
                               children: [
-                                const Icon(Icons.error_rounded,
-                                    color: Colors.white, size: 18),
+                                const Icon(
+                                  Icons.error_rounded,
+                                  color: Colors.white,
+                                  size: 18,
+                                ),
                                 const SizedBox(width: 8),
                                 Expanded(child: Text('Gagal: $err')),
                               ],
@@ -149,7 +157,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             backgroundColor: Colors.red.shade600,
                             behavior: SnackBarBehavior.floating,
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12)),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
                           ),
                         );
                       } else {
@@ -176,7 +185,9 @@ class _SettingsPageState extends State<SettingsPage> {
       context: context,
       builder: (ctx) => StatefulBuilder(
         builder: (ctx, setStateDialog) => AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
           title: Row(
             children: [
               Container(
@@ -185,8 +196,11 @@ class _SettingsPageState extends State<SettingsPage> {
                   color: ClayColors.warning.withAlpha(25),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Icon(Icons.manage_accounts_rounded,
-                    color: ClayColors.warning, size: 18),
+                child: Icon(
+                  Icons.manage_accounts_rounded,
+                  color: ClayColors.warning,
+                  size: 18,
+                ),
               ),
               const SizedBox(width: 10),
               const Text('Edit User'),
@@ -240,9 +254,10 @@ class _SettingsPageState extends State<SettingsPage> {
               label: 'Simpan',
               onPressed: () async {
                 if (!formKey.currentState!.validate()) return;
-                await context
-                    .read<AuthProvider>()
-                    .updateRole(user.id, selectedRole);
+                await context.read<AuthProvider>().updateRole(
+                  user.id,
+                  selectedRole,
+                );
                 if (!ctx.mounted) return;
                 Navigator.pop(ctx, true);
               },
@@ -276,8 +291,11 @@ class _SettingsPageState extends State<SettingsPage> {
                 color: Colors.red.withAlpha(25),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child:
-                  Icon(Icons.delete_rounded, color: Colors.red.shade400, size: 18),
+              child: Icon(
+                Icons.delete_rounded,
+                color: Colors.red.shade400,
+                size: 18,
+              ),
             ),
             const SizedBox(width: 10),
             const Text('Hapus User'),
@@ -306,7 +324,8 @@ class _SettingsPageState extends State<SettingsPage> {
               backgroundColor: Colors.red.shade400,
               foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12)),
+                borderRadius: BorderRadius.circular(12),
+              ),
             ),
             onPressed: () => Navigator.pop(ctx, true),
             child: const Text('Hapus'),
@@ -331,6 +350,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     final auth = context.watch<AuthProvider>();
     final currentUserId = auth.profile?.id;
+    final isNarrow = MediaQuery.of(context).size.width < 430;
 
     if (auth.isLoading) {
       return const Center(child: CircularProgressIndicator());
@@ -355,23 +375,44 @@ class _SettingsPageState extends State<SettingsPage> {
     }
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _openAddUserDialog,
-        icon: const Icon(Icons.person_add_rounded),
-        label: const Text('Tambah User'),
-        backgroundColor: ClayColors.primary,
-        foregroundColor: Colors.white,
-      ),
+      floatingActionButton: isNarrow
+          ? FloatingActionButton(
+              onPressed: _openAddUserDialog,
+              heroTag: 'add-user-fab-mobile',
+              tooltip: 'Tambah User',
+              backgroundColor: ClayColors.primary,
+              foregroundColor: Colors.white,
+              child: const Icon(Icons.person_add_rounded),
+            )
+          : FloatingActionButton.extended(
+              onPressed: _openAddUserDialog,
+              heroTag: 'add-user-fab-desktop',
+              icon: const Icon(Icons.person_add_rounded),
+              label: const Text('Tambah User'),
+              backgroundColor: ClayColors.primary,
+              foregroundColor: Colors.white,
+              extendedPadding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 0,
+              ),
+              shape: const StadiumBorder(),
+            ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: auth.users.isEmpty
           ? Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.group_off_rounded,
-                      size: 56, color: Colors.grey.shade300),
+                  Icon(
+                    Icons.group_off_rounded,
+                    size: 56,
+                    color: Colors.grey.shade300,
+                  ),
                   const SizedBox(height: 12),
-                  const Text('Belum ada user',
-                      style: TextStyle(color: Colors.grey)),
+                  const Text(
+                    'Belum ada user',
+                    style: TextStyle(color: Colors.grey),
+                  ),
                 ],
               ),
             )
@@ -389,7 +430,9 @@ class _SettingsPageState extends State<SettingsPage> {
                     padding: const EdgeInsets.only(bottom: 10),
                     child: ClayCard(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 12),
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
                       child: Row(
                         children: [
                           Container(
@@ -430,15 +473,18 @@ class _SettingsPageState extends State<SettingsPage> {
                                     ),
                                     if (isSelf)
                                       Container(
-                                        margin:
-                                            const EdgeInsets.only(left: 6),
+                                        margin: const EdgeInsets.only(left: 6),
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 6, vertical: 2),
+                                          horizontal: 6,
+                                          vertical: 2,
+                                        ),
                                         decoration: BoxDecoration(
-                                          color:
-                                              ClayColors.success.withAlpha(30),
-                                          borderRadius:
-                                              BorderRadius.circular(6),
+                                          color: ClayColors.success.withAlpha(
+                                            30,
+                                          ),
+                                          borderRadius: BorderRadius.circular(
+                                            6,
+                                          ),
                                         ),
                                         child: Text(
                                           'Saya',
@@ -454,7 +500,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                 const SizedBox(height: 4),
                                 Container(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 8, vertical: 2),
+                                    horizontal: 8,
+                                    vertical: 2,
+                                  ),
                                   decoration: BoxDecoration(
                                     color: isAdmin
                                         ? ClayColors.primary.withAlpha(18)
@@ -477,14 +525,20 @@ class _SettingsPageState extends State<SettingsPage> {
                           ),
                           if (!isSelf) ...[
                             IconButton(
-                              icon: Icon(Icons.edit_rounded,
-                                  size: 20, color: ClayColors.warning),
+                              icon: Icon(
+                                Icons.edit_rounded,
+                                size: 20,
+                                color: ClayColors.warning,
+                              ),
                               tooltip: 'Edit user',
                               onPressed: () => _openEditDialog(user),
                             ),
                             IconButton(
-                              icon: Icon(Icons.delete_rounded,
-                                  size: 20, color: Colors.red.shade300),
+                              icon: Icon(
+                                Icons.delete_rounded,
+                                size: 20,
+                                color: Colors.red.shade300,
+                              ),
                               tooltip: 'Hapus user',
                               onPressed: () => _confirmDeleteUser(user),
                             ),

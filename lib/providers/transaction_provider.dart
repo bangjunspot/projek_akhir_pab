@@ -25,8 +25,18 @@ class TransactionProvider extends ChangeNotifier {
   double filteredMonthTotal = 0;
 
   static const List<String> monthNames = [
-    'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun',
-    'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des',
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'Mei',
+    'Jun',
+    'Jul',
+    'Ags',
+    'Sep',
+    'Okt',
+    'Nov',
+    'Des',
   ];
 
   Future<void> loadTransactions() async {
@@ -48,11 +58,19 @@ class TransactionProvider extends ChangeNotifier {
     required List<Map<String, dynamic>> items,
   }) async {
     error = null;
+    if (items.isEmpty) {
+      throw Exception('Keranjang kosong');
+    }
+
     final transactionId = await _service.createTransaction(
       cashierId: cashierId,
       total: total,
     );
     await _service.createTransactionItems(
+      transactionId: transactionId,
+      items: items,
+    );
+    await _service.createStockOutMovements(
       transactionId: transactionId,
       items: items,
     );
@@ -69,49 +87,59 @@ class TransactionProvider extends ChangeNotifier {
   void _computeSummaries() {
     final now = DateTime.now();
 
-    todayTotal = transactions.where((t) {
-      final d = t.createdAt;
-      if (d == null) return false;
-      return d.year == now.year && d.month == now.month && d.day == now.day;
-    }).fold<double>(0, (sum, t) => sum + t.total);
+    todayTotal = transactions
+        .where((t) {
+          final d = t.createdAt;
+          if (d == null) return false;
+          return d.year == now.year && d.month == now.month && d.day == now.day;
+        })
+        .fold<double>(0, (sum, t) => sum + t.total);
 
-    monthTotal = transactions.where((t) {
-      final d = t.createdAt;
-      if (d == null) return false;
-      return d.year == now.year && d.month == now.month;
-    }).fold<double>(0, (sum, t) => sum + t.total);
+    monthTotal = transactions
+        .where((t) {
+          final d = t.createdAt;
+          if (d == null) return false;
+          return d.year == now.year && d.month == now.month;
+        })
+        .fold<double>(0, (sum, t) => sum + t.total);
 
     last7Days = List.generate(7, (i) {
       final date = now.subtract(Duration(days: 6 - i));
-      final total = transactions.where((t) {
-        final d = t.createdAt;
-        if (d == null) return false;
-        return d.year == date.year &&
-            d.month == date.month &&
-            d.day == date.day;
-      }).fold<double>(0, (sum, t) => sum + t.total);
+      final total = transactions
+          .where((t) {
+            final d = t.createdAt;
+            if (d == null) return false;
+            return d.year == date.year &&
+                d.month == date.month &&
+                d.day == date.day;
+          })
+          .fold<double>(0, (sum, t) => sum + t.total);
       return MapEntry(date, total);
     });
 
     monthDays = List.generate(now.day, (i) {
       final date = DateTime(now.year, now.month, i + 1);
-      final total = transactions.where((t) {
-        final d = t.createdAt;
-        if (d == null) return false;
-        return d.year == date.year &&
-            d.month == date.month &&
-            d.day == date.day;
-      }).fold<double>(0, (sum, t) => sum + t.total);
+      final total = transactions
+          .where((t) {
+            final d = t.createdAt;
+            if (d == null) return false;
+            return d.year == date.year &&
+                d.month == date.month &&
+                d.day == date.day;
+          })
+          .fold<double>(0, (sum, t) => sum + t.total);
       return MapEntry(date, total);
     });
 
     // Yearly monthly totals (current year)
     yearlyMonthTotals = List.generate(12, (m) {
-      return transactions.where((t) {
-        final d = t.createdAt;
-        if (d == null) return false;
-        return d.year == now.year && d.month == (m + 1);
-      }).fold<double>(0, (sum, t) => sum + t.total);
+      return transactions
+          .where((t) {
+            final d = t.createdAt;
+            if (d == null) return false;
+            return d.year == now.year && d.month == (m + 1);
+          })
+          .fold<double>(0, (sum, t) => sum + t.total);
     });
 
     _computeFilteredMonth();
@@ -123,13 +151,15 @@ class TransactionProvider extends ChangeNotifier {
 
     filteredMonthDays = List.generate(daysInMonth, (i) {
       final date = DateTime(selectedYear, selectedMonth, i + 1);
-      final total = transactions.where((t) {
-        final d = t.createdAt;
-        if (d == null) return false;
-        return d.year == date.year &&
-            d.month == date.month &&
-            d.day == date.day;
-      }).fold<double>(0, (sum, t) => sum + t.total);
+      final total = transactions
+          .where((t) {
+            final d = t.createdAt;
+            if (d == null) return false;
+            return d.year == date.year &&
+                d.month == date.month &&
+                d.day == date.day;
+          })
+          .fold<double>(0, (sum, t) => sum + t.total);
       return MapEntry(date, total);
     });
 

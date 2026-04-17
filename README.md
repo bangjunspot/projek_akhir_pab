@@ -24,6 +24,16 @@ dijalankan di Android (APK) maupun browser web (Chrome).
 | Manajemen Stok | Admin & Kasir | Tambah/kurangi stok, riwayat pergerakan |
 | Manajemen User | Admin | CRUD user via Supabase Edge Function |
 | Notifikasi | Admin & Kasir | Notifikasi lokal saat transaksi berhasil |
+| Notifikasi CRUD Menu | Admin | SnackBar hijau/merah otomatis setelah tambah, edit, hapus menu |
+| Upload Gambar Produk | Admin | Pilih gambar dari galeri -> upload ke Supabase Storage (`product-images`) |
+| Format Harga Rupiah | Admin | Input harga pakai `currency_text_input_formatter` + `intl` untuk tampilan `Rp 10.000` |
+| Dashboard - Grafik Keuntungan | Admin | Grafik bar keuntungan per bulan + filter bulan untuk detail harian |
+| Dashboard - Sumbu Grafik | Admin | Label tanggal & nominal jelas, tooltip putih, Y-axis nilai singkat (rb/jt) |
+| Stok - Auto Nonaktif | Admin & Kasir | Produk otomatis dinonaktifkan (bukan dihapus) jika stok mencapai 0 |
+| Stok - Jarak Item | Admin & Kasir | Jarak antar baris stok diperbesar + indikator "Stok Habis" merah |
+| Create User - Reveal Password | Admin | Tombol mata untuk show/hide password di tambah/edit user |
+| Notifikasi Logout | Admin & Kasir | Konfirmasi dialog logout + SnackBar "Berhasil logout" |
+| Notifikasi CRUD User | Admin | SnackBar saat tambah, edit, hapus user |
 
 ---
 
@@ -200,23 +210,7 @@ supabase/
 │   └── create-user/    # Edge Function: buat user baru (server-side)
 └── run_all.sql         # Setup schema, RLS, seed menu, setup users
 ```
-
 ---
-
-## Revisi Fitur (v1.1.0)
-
-| No | Fitur | Keterangan |
-|---|---|---|
-| 1 | **Notifikasi CRUD Menu** | SnackBar hijau/merah otomatis setelah tambah, edit, hapus menu |
-| 2 | **Upload Gambar Produk** | Pilih gambar dari galeri → upload ke Supabase Storage (`product-images`) |
-| 3 | **Format Harga Rupiah** | Input harga pakai `currency_text_input_formatter` (titik ribuan otomatis) + `intl` untuk tampil `Rp 10.000` |
-| 4 | **Dashboard – Grafik Keuntungan** | Grafik bar keuntungan per bulan sepanjang tahun + filter bulan untuk detail harian |
-| 5 | **Dashboard – Sumbu Grafik** | Label tanggal & nominal jelas, tooltip putih, Y-axis menampilkan nilai singkat (rb/jt) |
-| 6 | **Stok – Auto Nonaktif** | Produk otomatis dinonaktifkan (bukan dihapus) jika stok mencapai 0; notif peringatan muncul |
-| 7 | **Stok – Jarak Item** | Jarak antar baris stok diperbesar + indikator "Stok Habis" berwarna merah |
-| 8 | **Create User – Reveal Password** | Tombol mata pada field password untuk show/hide; Edit User tampilkan field password opsional |
-| 9 | **Notifikasi Logout** | Konfirmasi dialog sebelum logout + SnackBar "Berhasil logout" saat kembali ke login |
-| 10 | **Notifikasi CRUD User** | SnackBar pada tambah, edit, hapus user |
 
 ### Catatan Setup Storage (Supabase)
 
@@ -224,4 +218,5 @@ Buat bucket `product-images` di Supabase Storage:
 1. Supabase Dashboard → Storage → New Bucket → nama: `product-images`
 2. Set **Public** agar URL gambar dapat diakses
 3. Tambahkan policy INSERT untuk role `authenticated`
+
 

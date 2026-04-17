@@ -75,13 +75,16 @@ dijalankan di Android (APK) maupun browser web (Chrome).
 
 ---
 
-## Package Tambahan (Nilai Tambah)
+## Package Tambahan
 
 | Package | Fungsi |
 |---|---|
 | `fl_chart ^0.69.0` | Visualisasi grafik bar & line chart pada halaman dashboard |
 | `google_fonts ^6.2.1` | Tipografi Nunito & DM Sans untuk UI yang konsisten |
 | `flutter_local_notifications ^18.0.1` | Notifikasi lokal saat transaksi berhasil (Android & iOS) |
+| `currency_text_input_formatter ^2.1.1` | Titik ribuan otomatis pada input harga |
+| `image_picker ^1.1.2` | Pilih gambar dari galeri untuk foto produk |
+| `intl ^0.19.0` | Format Rupiah dengan separator ribuan |
 
 Package di atas tidak termasuk dalam daftar package yang diajarkan di praktikum.
 
@@ -214,14 +217,6 @@ supabase/
 | 8 | **Create User – Reveal Password** | Tombol mata pada field password untuk show/hide; Edit User tampilkan field password opsional |
 | 9 | **Notifikasi Logout** | Konfirmasi dialog sebelum logout + SnackBar "Berhasil logout" saat kembali ke login |
 | 10 | **Notifikasi CRUD User** | SnackBar pada tambah, edit, hapus user |
-
-### Package Tambahan (Revisi)
-
-| Package | Fungsi |
-|---|---|
-| `currency_text_input_formatter ^2.1.1` | Titik ribuan otomatis pada input harga |
-| `image_picker ^1.1.2` | Pilih gambar dari galeri untuk foto produk |
-| `intl ^0.19.0` | Format Rupiah dengan separator ribuan |
 
 ### Catatan Setup Storage (Supabase)
 

@@ -13,14 +13,14 @@ dijalankan di Android 📱 (APK) maupun browser web 🌐 (Chrome).
 
 ---
 
-## Anggota Tim — Sidang Berapi
+## Anggota Tim — Sidang Berapi🔥
 
 | Nama | NIM | Role |
 |---|---|---|
 | Sayid Rafi A'thaya | 2409116036 | Project Manager |
-| (isi nama) | (isi NIM) | Backend / Supabase |
-| (isi nama) | (isi NIM) | (Frontend / UI |
-| (isi nama) | (isi NIM) | (isi role) |
+| Mochammad Rezky Ramadhan | 2409116029 | Backend / Supabase |
+| Adella Putri | 2409116006 | Frontend / UI |
+| Dhita Olivia Ramadhayanti Kusuma | 2409116040 | Documentation / Report |
 
 ---
 

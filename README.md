@@ -157,6 +157,14 @@ Dengan sistem yang terintegrasi, aplikasi ini memudahkan proses pencatatan dan p
 
 ---
 
+## 📚 Slide Deck
+
+Berikut adalah link presentasi 
+
+https://canva.link/g10638pe91h9aws
+
+---
+
 ## 📦 Package Tambahan
 
 | Package                                | Fungsi                                                        |

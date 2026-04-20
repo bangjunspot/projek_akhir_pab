@@ -1,5 +1,7 @@
 # 🍽️ WARUNG MAKAN BANGJUN
 
+## 📜 Informasi Singkat UMKM 
+
 **Warung BangJun** merupakan UMKM kuliner yang menyediakan berbagai pilihan makanan dan minuman bagi pelanggan. Warung ini berfokus pada penyajian menu yang sederhana, enak, dan terjangkau, sehingga cocok untuk berbagai kalangan.
 
 Dalam aktivitas sehari-hari, Warung BangJun Spot melayani pelanggan yang datang langsung untuk makan di tempat maupun memesan untuk dibawa pulang. Dengan suasana yang santai dan pelayanan yang ramah, warung ini menjadi salah satu pilihan tempat makan yang nyaman.

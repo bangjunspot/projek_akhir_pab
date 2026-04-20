@@ -1,7 +1,7 @@
 # 🍽️🔥 BANGJUN SPOT 🚀
 
 Aplikasi kasir internal untuk UMKM Warung Makan BangJun di Samarinda 🍜
-Dibangun menggunakan Flutter 📱 + Supabase ☁️ sebagai bagian dari Proyek Akhir PAB 2026 🎓
+Dibangun menggunakan Flutter 📱 + Supabase ☁️ sebagai bagian dari Proyek Akhir Praktikum Pemrograman Aplikasi Bergerak 2026 🎓
 
 ---
 

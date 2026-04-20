@@ -17,13 +17,23 @@ dijalankan di Android 📱 (APK) maupun browser web 🌐 (Chrome).
 
 <img width="1919" height="1079" alt="Image" src="https://github.com/user-attachments/assets/1a1c2e19-b482-47d0-bdeb-986dc044cede" />  
 
+---
+
 <img width="1919" height="1079" alt="Image" src="https://github.com/user-attachments/assets/183ca465-bddc-43bf-a0bf-de87105769e0" />  
+
+---
 
 <img width="1919" height="1079" alt="Image" src="https://github.com/user-attachments/assets/ecaf1333-aaaa-47ac-8a86-411de9215b36" />  
 
+---
+
 <img width="1919" height="1079" alt="Image" src="https://github.com/user-attachments/assets/8146363a-ce2c-474a-85c3-cbe7602d3dc6" />  
 
+---
+
 <img width="1919" height="1079" alt="Image" src="https://github.com/user-attachments/assets/395ab076-95c2-404f-b1b1-8262b5f760e3" />  
+
+---
 
 <img width="1919" height="1079" alt="Image" src="https://github.com/user-attachments/assets/ce4dc2e2-f7c2-447c-a783-4f468f1c9461" />  
 

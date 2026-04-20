@@ -24,7 +24,7 @@ dijalankan di Android 📱 (APK) maupun browser web 🌐 (Chrome).
 
 ---
 
-## 🖼️✨ Tampilan Halaman
+## 🖼️✨ Tampilan Halaman (Laptop)
 
 <img width="1919" height="1079" alt="Image" src="https://github.com/user-attachments/assets/1a1c2e19-b482-47d0-bdeb-986dc044cede" />  
 
@@ -47,6 +47,28 @@ dijalankan di Android 📱 (APK) maupun browser web 🌐 (Chrome).
 ---
 
 <img width="1919" height="1079" alt="Image" src="https://github.com/user-attachments/assets/ce4dc2e2-f7c2-447c-a783-4f468f1c9461" />  
+
+---
+
+## 🖼️✨ Tampilan Halaman (Handphone)
+
+<img width="720" height="1600" alt="Image" src="https://github.com/user-attachments/assets/142ba03c-3c7c-409e-afaf-1495bdf5d05f" />
+
+---
+
+<img width="720" height="1600" alt="Image" src="https://github.com/user-attachments/assets/3189fb84-f32d-46ad-a220-453409b237a2" />
+
+---
+
+<img width="720" height="1600" alt="Image" src="https://github.com/user-attachments/assets/8142c18e-e315-48df-9d4f-b3226e7ffcc1" />
+
+---
+
+<img width="720" height="1600" alt="Image" src="https://github.com/user-attachments/assets/06d51c31-d421-4269-840d-3936890f9386" />
+
+---
+
+<img width="720" height="1600" alt="Image" src="https://github.com/user-attachments/assets/eed8e2a0-e820-4850-8ab1-26e61668b5f0" />
 
 ---
 

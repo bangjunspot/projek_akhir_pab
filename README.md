@@ -17,9 +17,9 @@ dijalankan di Android 📱 (APK) maupun browser web 🌐 (Chrome).
 
 | Nama | NIM | Role |
 |---|---|---|
-| (isi nama) | (isi NIM) | Frontend / UI |
+| Sayid Rafi A'thaya | 2409116036 | Project Manager |
 | (isi nama) | (isi NIM) | Backend / Supabase |
-| (isi nama) | (isi NIM) | (isi role) |
+| (isi nama) | (isi NIM) | (Frontend / UI |
 | (isi nama) | (isi NIM) | (isi role) |
 
 ---

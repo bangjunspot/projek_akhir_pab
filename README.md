@@ -13,6 +13,17 @@ dijalankan di Android 📱 (APK) maupun browser web 🌐 (Chrome).
 
 ---
 
+## Anggota Tim — Sidang Berapi
+
+| Nama | NIM | Role |
+|---|---|---|
+| (isi nama) | (isi NIM) | Frontend / UI |
+| (isi nama) | (isi NIM) | Backend / Supabase |
+| (isi nama) | (isi NIM) | (isi role) |
+| (isi nama) | (isi NIM) | (isi role) |
+
+---
+
 ## 🖼️✨ Tampilan Halaman
 
 <img width="1919" height="1079" alt="Image" src="https://github.com/user-attachments/assets/1a1c2e19-b482-47d0-bdeb-986dc044cede" />  

@@ -76,6 +76,32 @@ class _KasirPageState extends State<KasirPage>
     return ordered;
   }
 
+  bool _tryIncreaseQty({
+    required BuildContext context,
+    required CartProvider cart,
+    required Product product,
+    required Map<String, int> stockMap,
+  }) {
+    final stockQty = stockMap[product.id] ?? 0;
+    final qtyInCart = cart.items[product.id]?.quantity ?? 0;
+    if (qtyInCart >= stockQty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Maks stok ${product.name}: $stockQty'),
+          backgroundColor: ClayColors.warning,
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(seconds: 2),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      );
+      return false;
+    }
+    cart.addItem(product);
+    return true;
+  }
+
   /// Kelompokkan SEMUA produk (bukan hanya aktif)
   Map<String, List<Product>> _groupProducts(List<Product> items) {
     final map = <String, List<Product>>{};
@@ -242,7 +268,7 @@ class _KasirPageState extends State<KasirPage>
             ),
           ),
         ),
-        _buildCartPanel(context, cart),
+        _buildCartPanel(context, cart, stockMap),
       ],
     );
   }
@@ -442,24 +468,12 @@ class _KasirPageState extends State<KasirPage>
                             _SmallIconBtn(
                               icon: Icons.add,
                               onTap: () {
-                                // Cek tidak melebihi stok
-                                if (qtyInCart >= stockQty) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Maks stok ${product.name}: $stockQty',
-                                      ),
-                                      backgroundColor: ClayColors.warning,
-                                      behavior: SnackBarBehavior.floating,
-                                      duration: const Duration(seconds: 2),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                    ),
-                                  );
-                                  return;
-                                }
-                                cart.addItem(product);
+                                _tryIncreaseQty(
+                                  context: context,
+                                  cart: cart,
+                                  product: product,
+                                  stockMap: stockMap,
+                                );
                               },
                               color: ClayColors.primary,
                             ),
@@ -469,17 +483,24 @@ class _KasirPageState extends State<KasirPage>
                         _SmallIconBtn(
                           icon: Icons.add_shopping_cart_rounded,
                           onTap: () {
-                            cart.addItem(product);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('${product.name} ditambahkan'),
-                                duration: const Duration(milliseconds: 600),
-                                behavior: SnackBarBehavior.floating,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
+                            final added = _tryIncreaseQty(
+                              context: context,
+                              cart: cart,
+                              product: product,
+                              stockMap: stockMap,
                             );
+                            if (added) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('${product.name} ditambahkan'),
+                                  duration: const Duration(milliseconds: 600),
+                                  behavior: SnackBarBehavior.floating,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                              );
+                            }
                           },
                           color: ClayColors.primary,
                         ),
@@ -495,7 +516,11 @@ class _KasirPageState extends State<KasirPage>
     return widgets;
   }
 
-  Widget _buildCartPanel(BuildContext context, CartProvider cart) {
+  Widget _buildCartPanel(
+    BuildContext context,
+    CartProvider cart,
+    Map<String, int> stockMap,
+  ) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
       child: ClayCard(
@@ -658,7 +683,12 @@ class _KasirPageState extends State<KasirPage>
                                       ),
                                       _SmallIconBtn(
                                         icon: Icons.add,
-                                        onTap: () => cart.addItem(item.product),
+                                        onTap: () => _tryIncreaseQty(
+                                          context: context,
+                                          cart: cart,
+                                          product: item.product,
+                                          stockMap: stockMap,
+                                        ),
                                         color: ClayColors.primary,
                                         size: 18,
                                       ),

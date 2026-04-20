@@ -76,6 +76,7 @@ drop policy if exists "products admin" on products;
 
 drop policy if exists "stock admin" on stock_movements;
 drop policy if exists "stock read authenticated" on stock_movements;
+drop policy if exists "stock out insert authenticated" on stock_movements;
 
 drop policy if exists "transactions insert" on transactions;
 drop policy if exists "transactions read" on transactions;
@@ -99,6 +100,13 @@ create policy "stock admin" on stock_movements for all
   using (is_admin()) with check (is_admin());
 create policy "stock read authenticated" on stock_movements for select
   using (auth.uid() is not null);
+create policy "stock out insert authenticated" on stock_movements for insert
+  with check (
+    auth.uid() is not null
+    and type = 'out'
+    and qty > 0
+    and product_id is not null
+  );
 
 create policy "transactions insert" on transactions for insert
   with check (auth.uid() = cashier_id);
